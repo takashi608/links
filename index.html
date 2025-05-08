@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランダム記事リンク</title>
+    <style>
+        body {
+            font-family: "Meiryo", sans-serif;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+            background-color: #fff;
+        }
+        a {
+            color: #007aff;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        .link-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px auto;
+            padding: 10px;
+            max-width: 400px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h3 {
+            font-size: 16px;
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="link-box">
+    <h3>🔥おすすめ記事</h3>
+    <ul id="linkList"></ul>
+</div>
+
+<script>
+    const links = [
+        {title: "【FF14】令和最新版、himechanにオススメのジョブがコチラ", url: "https://ff14net.2chblog.jp/archives/62168909.html"},
+        {title: "【FF14】とあるユーザーが規約違反の代行を依頼しアカウントが乗っ取られる→代行業者と依頼者のバトルが勃発ｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/62033336.html"},
+        {title: "【FF14】出会い厨ヒカセンが書いたロドスト日記「リアル女性判別方法」がガチで気持ち悪すぎて炎上してしまう", url: "https://ff14net.2chblog.jp/archives/61882227.html"},
+        {title: "【FF14】召喚士さん、PTにいるだけでメレーLB3の2発分の損失が出ることが判明・・・", url: "https://ff14net.2chblog.jp/archives/62330560.html"},
+        {title: "【FF14】ホロライブ企画「HOLOXIV」、3日間下限極タイタンに挑戦するもクリアできないという結果に", url: "https://ff14net.2chblog.jp/archives/62338604.html"},
+        {title: "【FF14】ウクラマトさん、海外の「7.0で最も嫌いなNPCランキング」で2位と6倍近く差を付けて1位になってしまうｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61880612.html"},
+        {title: "【FF14】食べ物系はヤバい人が多い！？警戒するべきキャラ名の特徴がコチラｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61880612.html"},
+        {title: "【FF14】とあるIDで起こった夏休みキッズとの先釣り論争が話題に", url: "https://ff14net.2chblog.jp/archives/61731372.html"},
+        {title: "【FF14】7.0メインストーリーでウクラマトが犯した罪ランキング、堂々の1位がコレｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61719984.html"},
+        {title: "【FF14】「俺の怒りが有頂天」のようなブロント語、ついに知らない世代が出始める・・・", url: "https://ff14net.2chblog.jp/archives/61656365.html"},
+        {title: "【FF14】今と昔のハゲルガ祭り、あまりにも違いすぎるｗｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/60479120.html"},
+        {title: "【FF14】ギルの単位を「K」「M」「G」で表す人たち、老人扱いされてしまうｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/60893801.html"},
+        {title: "【FF14】海外ユーザーさん、ついに不満が爆発。公式の英語フォーラムに不満スレが続々と立つようになってしまう・・・", url: "https://ff14net.2chblog.jp/archives/62214234.html"},
+        {title: "【FF14】絶で傭兵募集をしたユーザーがBANされ話題に。", url: "https://ff14net.2chblog.jp/archives/62189779.html"},
+        {title: "【FF14】レンジユーザーさん、ライト扱いされていることにブチギレ", url: "https://ff14net.2chblog.jp/archives/62083721.html"}
+    ];
+
+    const shuffled = links.sort(() => 0.5 - Math.random()).slice(0, 5);
+    const linkList = document.getElementById('linkList');
+    shuffled.forEach(link => {
+        let li = document.createElement('li');
+        li.innerHTML = `<a href="${link.url}" target="_blank">${link.title}</a>`;
+        linkList.appendChild(li);
+    });
+</script>
+
+</body>
+</html>
