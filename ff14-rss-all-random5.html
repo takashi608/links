@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FF14カテゴリRSSまとめ（ランダム5件）</title>
+  <style>
+    body {
+      font-family: "Meiryo", sans-serif;
+      background: #fff;
+      padding: 5px;
+      margin: 0;
+    }
+    .rss-box {
+      display: flex;
+      align-items: center;
+      max-width: 680px;
+      margin: 8px auto;
+      border-bottom: 1px solid #eee;
+      padding: 6px 0;
+    }
+    .rss-box img {
+      width: 50px;
+      height: 50px;
+      margin-right: 5px;
+      transition: transform 0.3s ease;
+    }
+    .rss-box:hover img {
+      transform: scale(1.1);
+    }
+    .rss-box a {
+      text-decoration: none;
+      color: #007aff;
+      font-size: 15px;
+    }
+.rss-box a:hover {
+  text-decoration: none;
+  color: #d03838;
+}
+  </style>
+</head>
+<body>
+  <div id="rss-container"></div>
+
+  <script>
+    const feeds = [{"name": "ナイト", "icon": "https://takashi608.github.io/links/Paladin.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123268.xml", "range": 0}, {"name": "戦士", "icon": "https://takashi608.github.io/links/Warrior.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123269.xml", "range": 0}, {"name": "ガンブレイカー", "icon": "https://takashi608.github.io/links/Gunbreaker.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1339958.xml", "range": 0}, {"name": "暗黒騎士", "icon": "https://takashi608.github.io/links/DarkKnight.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1243803.xml", "range": 0}, {"name": "白魔道士", "icon": "https://takashi608.github.io/links/WhiteMage.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123278.xml", "range": 0}, {"name": "占星術師", "icon": "https://takashi608.github.io/links/Astrologian.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1262192.xml", "range": 0}, {"name": "賢者", "icon": "https://takashi608.github.io/links/Sage.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1351530.xml", "range": 0}, {"name": "学者", "icon": "https://takashi608.github.io/links/Scholar.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123277.xml", "range": 0}, {"name": "竜騎士", "icon": "https://takashi608.github.io/links/Dragoon.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123272.xml", "range": 0}, {"name": "モンク", "icon": "https://takashi608.github.io/links/Monk.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123273.xml", "range": 0}, {"name": "忍者", "icon": "https://takashi608.github.io/links/Ninja.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1220916.xml", "range": 0}, {"name": "侍", "icon": "https://takashi608.github.io/links/Samurai.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1317958.xml", "range": 0}, {"name": "リーパー", "icon": "https://takashi608.github.io/links/Reaper.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1352544.xml", "range": 0}, {"name": "ヴァイパー", "icon": "https://takashi608.github.io/links/Viper.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1361703.xml", "range": 0}, {"name": "ピクトマンサー", "icon": "https://takashi608.github.io/links/Pictomancer.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1362205.xml", "range": 0}, {"name": "吟遊詩人", "icon": "https://takashi608.github.io/links/Bard.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123274.xml", "range": 0}, {"name": "機工士", "icon": "https://takashi608.github.io/links/Machinist.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1262306.xml", "range": 0}, {"name": "踊り子", "icon": "https://takashi608.github.io/links/Dancer.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1341049.xml", "range": 0}, {"name": "黒魔道士", "icon": "https://takashi608.github.io/links/BlackMage.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1122351.xml", "range": 0}, {"name": "召喚士", "icon": "https://takashi608.github.io/links/Summoner.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123276.xml", "range": 0}, {"name": "赤魔道士", "icon": "https://takashi608.github.io/links/RedMage.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1315505.xml", "range": 0}, {"name": "青魔道士", "icon": "https://takashi608.github.io/links/BlueMage.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1338256.xml", "range": 0}, {"name": "掲示板", "icon": "https://takashi608.github.io/links/Talk.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1323604.xml", "range": 0}, {"name": "ハウジング", "icon": "https://takashi608.github.io/links/housing.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1171345.xml", "range": 0}, {"name": "コスモエクスプローラー", "icon": "https://takashi608.github.io/links/month.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1362211.xml", "range": 0}, {"name": "ニュース", "icon": "https://takashi608.github.io/links/News.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1128587.xml", "range": 0}, {"name": "PvP", "icon": "https://takashi608.github.io/links/PvP.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1221801.xml", "range": 0}, {"name": "マウント", "icon": "https://takashi608.github.io/links/mount.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1203979.xml", "range": 0}, {"name": "インスタンスレイド", "icon": "https://takashi608.github.io/links/limit_break.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1128880.xml", "range": 0}, {"name": "愚痴", "icon": "https://takashi608.github.io/links/blacklist.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1308461.xml", "range": 0}, {"name": "お役立ち", "icon": "https://takashi608.github.io/links/hall_of_the_novice.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1130376.xml", "range": 0}];
+
+    const selected = feeds.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+    selected.forEach(feed => {
+      fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.rss))
+        .then(res => res.json())
+        .then(data => {
+          const item = data.items[feed.range || 0];
+          const html = `
+            <div class="rss-box">
+              <img src="${feed.icon}" alt="${feed.name} アイコン">
+              <a href="${item.link}" target="_blank">${item.title}</a>
+            </div>
+          `;
+          document.getElementById("rss-container").insertAdjacentHTML("beforeend", html);
+        })
+        .catch(err => {
+          console.error("RSS取得失敗:", feed.name, err);
+        });
+    });
+  </script>
+</body>
+</html>
