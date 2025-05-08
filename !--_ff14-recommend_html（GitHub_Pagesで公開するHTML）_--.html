@@ -1,0 +1,61 @@
+<!-- ff14-recommend.html（GitHub Pagesで公開するHTML） -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>おすすめ記事（ランダム）</title>
+  <style>
+    body {
+      font-family: 'Meiryo', sans-serif;
+      font-size: 14px;
+      padding: 10px;
+      margin: 0;
+      background: #fff;
+    }
+    h2 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    a {
+      color: #007aff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>✨ おすすめ記事 (FF14)</h2>
+  <ul id="recommend-list"></ul>
+
+  <script>
+    const links = [
+      ["【FF14】令和最新版、himechanにオススメのジョブがコチラ", "https://ff14net.2chblog.jp/archives/62168909.html"],
+      ["【FF14】代行を依頼し乗っ取られたユーザーと業者がバトル", "https://ff14net.2chblog.jp/archives/62033336.html"],
+      ["【FF14】出会い厨ヒカセンのロドスト日記が炎上", "https://ff14net.2chblog.jp/archives/61882227.html"],
+      ["【FF14】召喚士いるだけでメレーLB3が2発損？", "https://ff14net.2chblog.jp/archives/62330560.html"],
+      ["【FF14】ホロライブコラボ、3日極タイタンもクリアできず", "https://ff14net.2chblog.jp/archives/62338604.html"],
+      ["【FF14】ウクラマトが嫌われNPCランキング1位ｗ", "https://ff14net.2chblog.jp/archives/61880612.html"],
+      ["【FF14】食べ物系キャラ名は地雷率高め？", "https://ff14net.2chblog.jp/archives/61880612.html"],
+      ["【FF14】夏休みキッズと先釣り論争が話題に", "https://ff14net.2chblog.jp/archives/61731372.html"],
+      ["【FF14】ウクラマトの罪ランキング堂々の1位は…", "https://ff14net.2chblog.jp/archives/61719984.html"],
+      ["【FF14】ブロント語、通じない世代出現へ", "https://ff14net.2chblog.jp/archives/61656365.html"]
+    ];
+
+    const shuffled = links.sort(() => 0.5 - Math.random()).slice(0, 5);
+    const list = document.getElementById("recommend-list");
+
+    shuffled.forEach(([title, url]) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="${url}" target="_blank">${title}</a>`;
+      list.appendChild(li);
+    });
+  </script>
+</body>
+</html>
