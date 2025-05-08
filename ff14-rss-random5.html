@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FF14カテゴリRSSまとめ</title>
+  <style>
+    body {
+      font-family: "Meiryo", sans-serif;
+      background: #fff;
+      padding: 5px;
+      margin: 0;
+    }
+    .rss-box {
+      display: flex;
+      align-items: center;
+      max-width: 680px;
+      margin: 8px auto;
+      border-bottom: 1px solid #eee;
+      padding: 6px 0;
+    }
+    .rss-box img {
+      width: 50px;
+      height: 50px;
+      margin-right: 5px;
+      transition: transform 0.3s ease;
+    }
+    .rss-box:hover img {
+      transform: scale(1.1);
+    }
+    .rss-box a {
+      text-decoration: none;
+      color: #007aff;
+      font-size: 15px;
+    }
+    .rss-box a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="rss-container"></div>
+
+  <script>
+    const feeds = [{"name": "ナイト", "icon": "https://takashi608.github.io/links/Paladin.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123268.xml", "range": 0}, {"name": "戦士", "icon": "https://takashi608.github.io/links/Warrior.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123269.xml", "range": 0}, {"name": "ガンブレイカー", "icon": "https://takashi608.github.io/links/Gunbreaker.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1339958.xml", "range": 0}, {"name": "暗黒騎士", "icon": "https://takashi608.github.io/links/DarkKnight.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1243803.xml", "range": 0}, {"name": "白魔道士", "icon": "https://takashi608.github.io/links/WhiteMage.png", "rss": "https://ff14net.2chblog.jp/archives/cat_1123278.xml", "range": 0}];
+
+    const selected = feeds.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+    selected.forEach(feed => {
+      fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.rss))
+        .then(res => res.json())
+        .then(data => {
+          const item = data.items[feed.range || 0];
+          const html = `
+            <div class="rss-box">
+              <img src="${feed.icon}" alt="${feed.name} アイコン">
+              <a href="${item.link}" target="_blank">${item.title}</a>
+            </div>
+          `;
+          document.getElementById("rss-container").insertAdjacentHTML("beforeend", html);
+        })
+        .catch(err => {
+          console.error("RSS取得失敗:", feed.name, err);
+        });
+    });
+  </script>
+</body>
+</html>
