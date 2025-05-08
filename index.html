@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>リンク一覧</title>
+  <title>おすすめリンク</title>
   <style>
     body {
       font-family: "Meiryo", "メイリオ", sans-serif;
@@ -11,55 +11,50 @@
       background: #fff;
       color: #003366;
       margin: 0;
-      padding: 12px;
-      line-height: 1.6;
+      padding: 16px;
+      line-height: 1.7;
     }
     #linkList a {
       display: block;
-      color: #0046c0;
-      text-decoration: none;
-      margin: 8px 0;
+      color: #0055aa;
+      text-decoration: underline;
+      margin-bottom: 10px;
+      transition: 0.2s;
       font-weight: bold;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 6px;
     }
     #linkList a:hover {
+      color: #d03838;
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-<div id="linkList"></div>
+  <div id="linkList"></div>
 
-<script>
-  const links = [
-    { title: "【FF14】令和最新版、himechanにオススメのジョブがコチラ", url: "https://ff14net.2chblog.jp/archives/62168909.html" },
-    { title: "【FF14】とあるユーザーが規約違反の代行を依頼しアカウントが乗っ取られる→代行業者と依頼者のバトルが勃発ｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/62033336.html" },
-    { title: "【FF14】出会い厨ヒカセンが書いたロドスト日記「リアル女性判別方法」がガチで気持ち悪すぎて炎上してしまう", url: "https://ff14net.2chblog.jp/archives/61882227.html" },
-    { title: "【FF14】召喚士さん、PTにいるだけでメレーLB3の2発分の損失が出ることが判明・・・", url: "https://ff14net.2chblog.jp/archives/62330560.html" },
-    { title: "【FF14】ホロライブ企画「HOLOXIV」、3日間下限極タイタンに挑戦するもクリアできないという結果に", url: "https://ff14net.2chblog.jp/archives/62338604.html" },
-    { title: "【FF14】ウクラマトさん、海外の「7.0で最も嫌いなNPCランキング」で2位と6倍近く差を付けて1位になってしまうｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61880612.html" },
-    { title: "【FF14】食べ物系はヤバい人が多い！？警戒するべきキャラ名の特徴がコチラｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61880612.html" },
-    { title: "【FF14】「先行して煽るのやめてもらっていいかな？」とあるIDで起こった夏休みキッズとの先釣り論争が話題に", url: "https://ff14net.2chblog.jp/archives/61731372.html" },
-    { title: "【FF14】7.0メインストーリーでウクラマトが犯した罪ランキング、堂々の1位がコレｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61719984.html" },
-    { title: "【FF14】「俺の怒りが有頂天」のようなブロント語、ついに知らない世代が出始める・・・", url: "https://ff14net.2chblog.jp/archives/61656365.html" },
-    { title: "【FF14】今と昔のハゲルガ祭り、あまりにも違いすぎるｗｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/60479120.html" },
-    { title: "【FF14】ギルの単位を「K」「M」「G」で表す人たち、老人扱いされてしまうｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/60893801.html" },
-    { title: "【FF14】海外ユーザーさん、ついに不満が爆発。公式の英語フォーラムに不満スレが続々と立つようになってしまう・・・", url: "https://ff14net.2chblog.jp/archives/62214234.html" },
-    { title: "【FF14】絶で傭兵募集をしたユーザーがBANされ話題に。あまりの理不尽展開に募集主が長文お気持ち表明へ", url: "https://ff14net.2chblog.jp/archives/62189779.html" },
-    { title: "【FF14】レンジユーザーさん、レンジがライト扱いされていることにブチギレ「簡単なのは認めるけどライト勢ではない！」", url: "https://ff14net.2chblog.jp/archives/62083721.html" }
-  ];
+  <script>
+    const links = [
+      { title: "【FF14】令和最新版、himechanにオススメのジョブがコチラ", url: "https://ff14net.2chblog.jp/archives/62168909.html" },
+      { title: "【FF14】とあるユーザーが規約違反の代行を依頼しアカウントが乗っ取られる→代行業者と依頼者のバトルが勃発ｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/62033336.html" },
+      { title: "【FF14】出会い厨ヒカセンが書いたロドスト日記「リアル女性判別方法」がガチで気持ち悪すぎて炎上してしまう", url: "https://ff14net.2chblog.jp/archives/61882227.html" },
+      { title: "【FF14】召喚士さん、PTにいるだけでメレーLB3の2発分の損失が出ることが判明・・・", url: "https://ff14net.2chblog.jp/archives/62330560.html" },
+      { title: "【FF14】ホロライブ企画「HOLOXIV」、3日間下限極タイタンに挑戦するもクリアできないという結果に", url: "https://ff14net.2chblog.jp/archives/62338604.html" },
+      { title: "【FF14】ウクラマトさん、海外の「7.0で最も嫌いなNPCランキング」で2位と6倍近く差を付けて1位になってしまうｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61880612.html" },
+      { title: "【FF14】食べ物系はヤバい人が多い！？警戒するべきキャラ名の特徴がコチラｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61880612.html" },
+      { title: "【FF14】「先行して煽るのやめてもらっていいかな？」とあるIDで起こった夏休みキッズとの先釣り論争が話題に", url: "https://ff14net.2chblog.jp/archives/61731372.html" },
+      { title: "【FF14】7.0メインストーリーでウクラマトが犯した罪ランキング、堂々の1位がコレｗｗｗｗｗｗ", url: "https://ff14net.2chblog.jp/archives/61719984.html" },
+      { title: "【FF14】「俺の怒りが有頂天」のようなブロント語、ついに知らない世代が出始める・・・", url: "https://ff14net.2chblog.jp/archives/61656365.html" }
+    ];
 
-  const shuffled = links.sort(() => 0.5 - Math.random()).slice(0, 5);
-  const list = document.getElementById("linkList");
+    const shuffled = links.sort(() => 0.5 - Math.random()).slice(0, 5);
+    const list = document.getElementById("linkList");
 
-  shuffled.forEach(link => {
-    const a = document.createElement("a");
-    a.href = link.url;
-    a.target = "_blank";
-    a.textContent = link.title;
-    list.appendChild(a);
-  });
-</script>
+    shuffled.forEach(link => {
+      const a = document.createElement("a");
+      a.href = link.url;
+      a.target = "_blank";
+      a.textContent = link.title;
+      list.appendChild(a);
+    });
+  </script>
 </body>
 </html>
