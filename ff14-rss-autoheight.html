@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>FF14 ランダムRSS一覧</title>
+  <style>
+    body {
+      font-family: "Meiryo", sans-serif;
+      margin: 0;
+      padding: 5px;
+      background: #fff;
+    }
+    .rss-box {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .rss-box img {
+      width: 50px;
+      height: 50px;
+      margin-right: 8px;
+      transition: transform 0.3s ease;
+    }
+    .rss-box:hover img {
+      transform: scale(1.05);
+    }
+    .rss-box a {
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #0066cc;
+      transition: color 0.2s;
+    }
+    .rss-box a:hover {
+      color: #004080;
+    }
+    .divider {
+      border-top: 1px solid #ddd;
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="rss-list"></div>
+
+  <script>
+    const feeds = [
+      { icon: "https://takashi608.github.io/links/Paladin.png", feed: "https://ff14net.2chblog.jp/archives/cat_1123268.xml" },
+      { icon: "https://takashi608.github.io/links/Warrior.png", feed: "https://ff14net.2chblog.jp/archives/cat_1123269.xml" },
+      { icon: "https://takashi608.github.io/links/Gunbreaker.png", feed: "https://ff14net.2chblog.jp/archives/cat_1339958.xml" },
+      { icon: "https://takashi608.github.io/links/DarkKnight.png", feed: "https://ff14net.2chblog.jp/archives/cat_1243803.xml" },
+      { icon: "https://takashi608.github.io/links/WhiteMage.png", feed: "https://ff14net.2chblog.jp/archives/cat_1123278.xml" },
+      { icon: "https://takashi608.github.io/links/Sage.png", feed: "https://ff14net.2chblog.jp/archives/cat_1351530.xml" },
+      { icon: "https://takashi608.github.io/links/Ninja.png", feed: "https://ff14net.2chblog.jp/archives/cat_1220916.xml" },
+      { icon: "https://takashi608.github.io/links/Viper.png", feed: "https://ff14net.2chblog.jp/archives/cat_1361703.xml" }
+    ];
+
+    const selected = feeds.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+    Promise.all(selected.map(f =>
+      fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(f.feed)}`)
+        .then(res => res.json())
+        .then(json => ({ icon: f.icon, title: json.items[0]?.title, url: json.items[0]?.link }))
+    )).then(items => {
+      const container = document.getElementById("rss-list");
+      items.forEach((item, index) => {
+        if (!item.title || !item.url) return;
+        const div = document.createElement("div");
+        div.className = "rss-box";
+        div.innerHTML = `<img src="${item.icon}" alt="icon"><a href="${item.url}" target="_blank">${item.title}</a>`;
+        container.appendChild(div);
+        if (index < items.length - 1) {
+          const line = document.createElement("div");
+          line.className = "divider";
+          container.appendChild(line);
+        }
+      });
+
+      // ▼ 高さを親iframeに通知
+      if (window.parent !== window) {
+        const height = document.body.scrollHeight;
+        window.parent.postMessage({ type: "resize-iframe", height }, "*");
+      }
+    });
+  </script>
+</body>
+</html>
