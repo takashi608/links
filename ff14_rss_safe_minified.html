@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>FF14 RSS</title>
+  <style>
+    body {
+      font-family: Meiryo, sans-serif;
+      margin: 0;
+      padding: 5px;
+      background: #fff;
+    }
+    .rss-box {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .rss-box img {
+      width: 50px;
+      height: 50px;
+      margin-right: 8px;
+      transition: transform 0.3s ease;
+    }
+    .rss-box:hover img {
+      transform: scale(1.05);
+    }
+    .rss-box a {
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #0066cc;
+      transition: color 0.2s;
+    }
+    .rss-box a:hover {
+      color: #004080;
+    }
+    .divider {
+      border-top: 1px solid #ddd;
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="rss-list"></div>
+  <script>
+    const feeds=[
+      { icon:"https://takashi608.github.io/links/Paladin.png",feed:"https://ff14net.2chblog.jp/archives/cat_1123268.xml" },
+      { icon:"https://takashi608.github.io/links/Warrior.png",feed:"https://ff14net.2chblog.jp/archives/cat_1123269.xml" },
+      { icon:"https://takashi608.github.io/links/Gunbreaker.png",feed:"https://ff14net.2chblog.jp/archives/cat_1339958.xml" },
+      { icon:"https://takashi608.github.io/links/DarkKnight.png",feed:"https://ff14net.2chblog.jp/archives/cat_1243803.xml" },
+      { icon:"https://takashi608.github.io/links/WhiteMage.png",feed:"https://ff14net.2chblog.jp/archives/cat_1123278.xml" },
+      { icon:"https://takashi608.github.io/links/Astrologian.png",feed:"https://ff14net.2chblog.jp/archives/cat_1262192.xml" },
+      { icon:"https://takashi608.github.io/links/Sage.png",feed:"https://ff14net.2chblog.jp/archives/cat_1351530.xml" },
+      { icon:"https://takashi608.github.io/links/Scholar.png",feed:"https://ff14net.2chblog.jp/archives/cat_1123277.xml" },
+      { icon:"https://takashi608.github.io/links/Dragoon.png",feed:"https://ff14net.2chblog.jp/archives/cat_1123272.xml" },
+      { icon:"https://takashi608.github.io/links/Monk.png",feed:"https://ff14net.2chblog.jp/archives/cat_1123273.xml" },
+      { icon:"https://takashi608.github.io/links/Ninja.png",feed:"https://ff14net.2chblog.jp/archives/cat_1220916.xml" },
+      { icon:"https://takashi608.github.io/links/Samurai.png",feed:"https://ff14net.2chblog.jp/archives/cat_1317958.xml" },
+      { icon:"https://takashi608.github.io/links/Reaper.png",feed:"https://ff14net.2chblog.jp/archives/cat_1352544.xml" },
+      { icon:"https://takashi608.github.io/links/Viper.png",feed:"https://ff14net.2chblog.jp/archives/cat_1361703.xml" },
+      { icon:"https://takashi608.github.io/links/Pictomancer.png",feed:"https://ff14net.2chblog.jp/archives/cat_1362205.xml" },
+      { icon:"https://takashi608.github.io/links/Bard.png",feed:"https://ff14net.2chblog.jp/archives/cat_1123274.xml" },
+      { icon:"https://takashi608.github.io/links/Machinist.png",feed:"https://ff14net.2chblog.jp/archives/cat_1262306.xml" },
+      { icon:"https://takashi608.github.io/links/Dancer.png",feed:"https://ff14net.2chblog.jp/archives/cat_1341049.xml" },
+      { icon:"https://takashi608.github.io/links/BlackMage.png",feed:"https://ff14net.2chblog.jp/archives/cat_1122351.xml" },
+      { icon:"https://takashi608.github.io/links/Summoner.png",feed:"https://ff14net.2chblog.jp/archives/cat_1123276.xml" },
+      { icon:"https://takashi608.github.io/links/RedMage.png",feed:"https://ff14net.2chblog.jp/archives/cat_1315505.xml" },
+      { icon:"https://takashi608.github.io/links/BlueMage.png",feed:"https://ff14net.2chblog.jp/archives/cat_1338256.xml" },
+      { icon:"https://takashi608.github.io/links/Talk.png",feed:"https://ff14net.2chblog.jp/archives/cat_1323604.xml" },
+      { icon:"https://takashi608.github.io/links/housing.png",feed:"https://ff14net.2chblog.jp/archives/cat_1171345.xml" },
+      { icon:"https://takashi608.github.io/links/month.png",feed:"https://ff14net.2chblog.jp/archives/cat_1362211.xml" },
+      { icon:"https://takashi608.github.io/links/News.png",feed:"https://ff14net.2chblog.jp/archives/cat_1128587.xml" },
+      { icon:"https://takashi608.github.io/links/PvP.png",feed:"https://ff14net.2chblog.jp/archives/cat_1221801.xml" },
+      { icon:"https://takashi608.github.io/links/mount.png",feed:"https://ff14net.2chblog.jp/archives/cat_1203979.xml" },
+      { icon:"https://takashi608.github.io/links/limit_break.png",feed:"https://ff14net.2chblog.jp/archives/cat_1128880.xml" },
+      { icon:"https://takashi608.github.io/links/blacklist.png",feed:"https://ff14net.2chblog.jp/archives/cat_1308461.xml" },
+      { icon:"https://takashi608.github.io/links/hall_of_the_novice.png",feed:"https://ff14net.2chblog.jp/archives/cat_1130376.xml" }
+    ];
+
+    const selected=feeds.sort(()=>0.5-Math.random()).slice(0,5);
+    Promise.allSettled(selected.map(f=>
+      fetch("https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(f.feed))
+      .then(r=>r.json()).then(j=>{
+        const items=j.items?.slice?.(0,3)||[];
+        const it=items[(Math.random()*items.length)|0];
+        return {icon:f.icon,title:it?.title,url:it?.link};
+      })
+    )).then(results=>{
+      const c=document.getElementById("rss-list");
+      results.forEach((r,i)=>{
+        if(r.status!=="fulfilled"||!r.value?.title||!r.value?.url)return;
+        const d=document.createElement("div");
+        d.className="rss-box";
+        d.innerHTML=`<img src="${r.value.icon}" alt="icon"><a href="${r.value.url}" target="_blank">${r.value.title}</a>`;
+        c.appendChild(d);
+        if(i<results.length-1){
+          const line=document.createElement("div");
+          line.className="divider";
+          c.appendChild(line);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
